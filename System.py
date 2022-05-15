@@ -77,9 +77,8 @@ class System:
 				set_pixel(self.__WEB_SERVER_LED, 0, 255, 0)
 			else:
 				set_pixel(self.__WEB_SERVER_LED, 255, 0, 0)
-			
-
-		set_pixel(self.__WEB_SERVER_LED, 255, 0, 0)
+		else:	
+			set_pixel(self.__WEB_SERVER_LED, 255, 0, 0)
 		return response
 
 	def network(self):
