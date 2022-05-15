@@ -30,6 +30,8 @@ class System:
 
 		self.__BLINKS = 5		#Number of blinks in init step
 		self.__DELAY_BLINK = 0.05 	#s
+
+		self.__localIP = None
 		
 		#Display settings
 		cpus = psutil.cpu_count(logical=True)
@@ -66,13 +68,18 @@ class System:
 		return currentTemperature
 
 	def webServer(self):
+		response = None
 
-		response = os.system("ping -c 1 192.168.43.254")
+		if(self.__localIP != None):
+			response = os.system("ping -c 1 "+str(self.__localIP))
 
-		if(response == False): #webServer is enable
-			set_pixel(self.__WEB_SERVER_LED, 0, 255, 0)
-		else:
-			set_pixel(self.__WEB_SERVER_LED, 255, 0, 0)
+			if(response == False): #webServer is enable
+				set_pixel(self.__WEB_SERVER_LED, 0, 255, 0)
+			else:
+				set_pixel(self.__WEB_SERVER_LED, 255, 0, 0)
+			
+
+		set_pixel(self.__WEB_SERVER_LED, 255, 0, 0)
 		return response
 
 	def network(self):
@@ -92,11 +99,13 @@ class System:
 			set_pixel(self.__INTERNET_LED, 255,0, 0)
 		elif(len(self.__interfaces) == 2):				#All interfaces
 			set_pixel(self.__INTERNET_LED, 0, 255, 0)
+			self.__localIP = self.__interfaces[0][1]
 		else:											#Only one interface
 			if(self.__interfaces[0][0] == "wlan0"):
 				set_pixel(self.__INTERNET_LED, 255, 127, 0)
 			else:	#eth0
 				set_pixel(self.__INTERNET_LED, 0, 255, 0)
+			self.__localIP = self.__interfaces[0][1]
 		show()
 		return self.__interfaces
 
@@ -110,11 +119,15 @@ class System:
 			set_pixel(self.__TEMPERATURE_LED,0, 255, 0)
 			set_pixel(self.__CPU_LED,0, 255, 0) 
 			set_pixel(self.__WEB_SERVER_LED,0, 255, 0) 
+			set_pixel(self.__INTERNET_LED,0, 255, 0) 
+			set_pixel(self.__MEMORY_LED,0, 255, 0) 
 			show()
 			time.sleep(self.__DELAY_BLINK)
 			set_pixel(self.__TEMPERATURE_LED,0, 0, 0)
 			set_pixel(self.__CPU_LED,0, 0, 0) 
 			set_pixel(self.__WEB_SERVER_LED,0, 0, 0) 
+			set_pixel(self.__INTERNET_LED,0, 0, 0) 
+			set_pixel(self.__MEMORY_LED,0, 0, 0) 
 			show()
 			time.sleep(self.__DELAY_BLINK)
 
@@ -154,7 +167,7 @@ class System:
 
 		if(percent <= self.__lowMemory):
 			set_pixel(self.__MEMORY_LED, 0,255 , 0)
-		elif(cpu <= self.__highMemory and cpu > self.__lowMemory ):
+		elif(percent <= self.__highMemory and percent > self.__lowMemory ):
 			set_pixel(self.__MEMORY_LED, 255, 127, 0)
 		else:
 			set_pixel(self.__MEMORY_LED, 255, 0, 0)
@@ -173,7 +186,7 @@ def main():
 
 	while(1):
 	
-		print(sys.temperatures());
+		print(sys.temperatures())
 		print(sys.cpu())
 		print(sys.memory())
 		print(sys.network())
