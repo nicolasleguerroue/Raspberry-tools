@@ -33,7 +33,7 @@ By following the next steps, you will be eager to start script on startup
 
 *Let's start*
 
-First of all, on the `/etc/systemd/system/` directory, let's create a file called **rpi_monitoring.service** : 
+First of all, in the `/etc/systemd/system/` directory, let's create a file called **rpi_monitoring.service** : 
 
 ```
 sudo nano /etc/system/system/rpi_monitoring.service
