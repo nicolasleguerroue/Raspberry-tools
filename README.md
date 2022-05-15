@@ -2,6 +2,9 @@
 
 This class is used to monitoring Raspberry Pi and display information on Pimoroni Neo-Pixel shield
 
+![img](doc/rpi.jpg)
+
+
 ## Installation
 
 First, update of system
