@@ -4,6 +4,8 @@ This class is used to monitoring Raspberry Pi and display information on Pimoron
 
 ![img](doc/rpi.jpg)
 
+## Layout
+![img](doc/schematic.png)
 
 ## Installation
 
@@ -86,6 +88,70 @@ and to stop : `sudo systemctl stop rpi_monitoring.service`
 ```
 sudo systemctl status rpi_monitoring
 ```
+
+## Array of LED
+
+There is an array of 8 leds on the shield, each LED is representing a status of service or application
+
+## Led status
+
+LED 1 : Temperature (T)
+
+| Value    |   LED color   |
+|----------|-------------|
+| T <= 55°C |  Green|
+| 55°C < T <= 70°C | Orange |
+| T > 70°C | Red |
+
+
+
+LED 2 : CPU Usage (%)  
+
+| Value    |   LED color   |
+|----------|:-------------:|
+| cpu < 10% |  Green |
+| 10% < cpu <= 60°C |    Orange   |
+| cpu > 60% | Red |
+
+LED 3 : Memory Usage (%)  
+
+| Value    |   LED color   |
+|----------|:-------------:|
+| mem < 20% |  Green |
+| 20% < mem <= 70°C |    Orange   |
+| cpu > 70% | Red |
+
+LED 4 : Web server  
+
+| Value    |   LED color   |
+|----------|:-------------:|
+| Enabled |  Green |
+| Disabled |    Red   |
+
+LED 5 : Internet connection
+
+| Value    |   LED color   |
+|----------|:-------------:|
+| Wifi disable and ethernet enabled   |    Green   |
+ Wifi enabled and Ethernet enabled |  Orange |
+| Wifi enabled and Ethernet disabled |  Orange |
+| Wifi disabled and ethernet disabled   |    Red   |
+
+
+LED 6 : Storage Usage (%) of '/'
+
+| Value    |   LED color   |
+|----------|:-------------:|
+| storage < 40% |  Green |
+| 40% < storage <= 90°C |    Orange   |
+| storage > 90% | Red |
+
+LED 7 : Number of users connected to the Raspberry Pi
+
+| Value    |   LED color   |
+|----------|:-------------:|
+| user = 1|  Green Blinking one time per second |
+| users > 1 | Orange blinking x users connected per second   |
 
 
 
